@@ -45,7 +45,7 @@
       "process_seconds": 0.574
     }
   ],
-  "scope": "Numerical correctness and renderer benchmarks only; all profiles use the source resolution. Results exclude decode, presentation and first-use shader compilation.",
+  "scope": "Numerical correctness and renderer benchmarks only; all profiles use the source resolution. Correct 2x output-size measurement is required for playback; results exclude decode, presentation and first-use shader compilation.",
   "motion_smoke": {
     "source": "16-frame FFV1 test video, 320x180 at 12 fps",
     "output": [
@@ -61,16 +61,33 @@
       "profile": "Fast",
       "model": "V3 SuperUltraCompact",
       "input": [
-        640,
-        360
+        1920,
+        1080
       ],
       "render_target": [
-        1280,
-        720
+        3840,
+        2160
+      ],
+      "steady_ms_per_frame": 278,
+      "fps_equivalent": 3.6,
+      "inference_resolution": "1920x1080 (native)",
+      "note": "Correct 2x output-size measurement on Apple M1; not real-time."
+    },
+    {
+      "profile": "Fast at 1080p target",
+      "model": "V3 SuperUltraCompact",
+      "input": [
+        1920,
+        1080
+      ],
+      "render_target": [
+        1920,
+        1080
       ],
       "steady_ms_per_frame": 29,
       "fps_equivalent": 34.5,
-      "inference_resolution": "640x360 (native)"
+      "inference_resolution": "1920x1080 (native)",
+      "note": "Lower render target than the model output; this is not the normal 2x output benchmark."
     },
     {
       "profile": "Performance",
