@@ -45,5 +45,15 @@
       "process_seconds": 0.574
     }
   ],
-  "scope": "Numerical and shader compilation verification only; not an HD real-time playback benchmark."
+  "scope": "Numerical and shader compilation verification only; not an HD real-time playback benchmark.",
+  "motion_smoke": {
+    "source": "16-frame FFV1 test video, 320x180 at 12 fps",
+    "output": [
+      640,
+      360
+    ],
+    "rendered_frames": 12,
+    "gl_error": 0,
+    "note": "Offscreen libmpv renderer smoke test, not GUI or HD performance verification."
+  }
 }

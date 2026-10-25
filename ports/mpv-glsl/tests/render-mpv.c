@@ -13,13 +13,14 @@ static void check(int code) { if (code < 0) { fprintf(stderr, "mpv: %s\n", mpv_e
 int main(int argc, char **argv) {
     if (argc != 6) { fprintf(stderr,"input shader output width height\n"); return 1; }
     int width = atoi(argv[4]), height = atoi(argv[5]);
+    int playback = getenv("AJN_TEST_PLAYBACK") != NULL;
     CGLPixelFormatAttribute attrs[] = { kCGLPFAOpenGLProfile, (CGLPixelFormatAttribute)kCGLOGLPVersion_3_2_Core, kCGLPFAAccelerated, 0 };
     CGLPixelFormatObj pf; GLint count; CGLContextObj gl;
     if (CGLChoosePixelFormat(attrs, &pf, &count) || CGLCreateContext(pf, NULL, &gl)) return 2;
     CGLDestroyPixelFormat(pf); CGLSetCurrentContext(gl);
     printf("GPU: %s\n", glGetString(GL_RENDERER));
     mpv_handle *mpv = mpv_create();
-    const char *options[][2] = {{"config","no"},{"vo","libmpv"},{"idle","yes"},{"pause","yes"},{"keep-open","yes"},{"image-display-duration","inf"},{"audio","no"},{"terminal","yes"},{"msg-level","all=warn"},{"fbo-format",getenv("AJN_FBO_FORMAT") ? getenv("AJN_FBO_FORMAT") : "rgba16f"},{"dither-depth","no"},{"scale","bilinear"},{"cscale","bilinear"},{"sigmoid-upscaling","no"},{"gpu-shader-cache","no"}};
+    const char *options[][2] = {{"config","no"},{"vo","libmpv"},{"idle","yes"},{"pause",playback ? "no" : "yes"},{"keep-open","yes"},{"image-display-duration","inf"},{"audio","no"},{"terminal","yes"},{"msg-level","all=warn"},{"fbo-format",getenv("AJN_FBO_FORMAT") ? getenv("AJN_FBO_FORMAT") : "rgba16f"},{"dither-depth","no"},{"scale","bilinear"},{"cscale","bilinear"},{"sigmoid-upscaling","no"},{"gpu-shader-cache","no"}};
     for (int i=0; i<sizeof(options)/sizeof(options[0]); i++) check(mpv_set_option_string(mpv,options[i][0],options[i][1]));
     if (argv[2][0]) check(mpv_set_option_string(mpv,"glsl-shaders",argv[2]));
     check(mpv_initialize(mpv));
@@ -41,7 +42,7 @@ int main(int argc, char **argv) {
         if (mpv_render_context_update(render)&MPV_RENDER_UPDATE_FRAME) {
             check(mpv_render_context_render(render,rp)); glFinish(); frames++;
         }
-        if (frames>1 && i>30) break;
+        if ((playback && frames>=12) || (!playback && frames>1 && i>30)) break;
     }
     glBindFramebuffer(GL_FRAMEBUFFER,fbo);
     float *pixels=malloc(width*height*4*sizeof(float));
@@ -50,5 +51,5 @@ int main(int argc, char **argv) {
     printf("Rendered %d frames, GL error %d\n",frames,glGetError());
     mpv_render_context_free(render); mpv_terminate_destroy(mpv);
     glDeleteFramebuffers(1,&fbo); glDeleteTextures(1,&tex); CGLDestroyContext(gl);
-    return frames ? 0 : 4;
+    return frames >= (playback ? 12 : 1) ? 0 : 4;
 }

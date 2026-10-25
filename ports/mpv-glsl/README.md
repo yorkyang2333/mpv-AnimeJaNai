@@ -41,7 +41,7 @@ clang -Wno-deprecated-declarations -I "$(brew --prefix mpv)/include" tests/rende
 
 The helper creates an offscreen OpenGL context, executes the shader with libmpv's OpenGL rendering API, reads float output pixels and compares them to CPU ONNX Runtime. It rejects renderer compilation errors as well as numerical mismatches. It checks even dimensions (32×24), odd dimensions (33×25), and a larger 256×144 input. `AJN_FBO_FORMAT=rgba32f` selects full-precision intermediate buffers for diagnostics.
 
-On the tested Apple M1 with IINA's libmpv and normal half-float intermediates, mean absolute RGB error was approximately 0.001 and maximum absolute error was below 0.008, on normalized input/output values. The output was exactly twice the source dimensions. Detailed observations are in `verification.json`. These cases validate shader compilation, model operations and odd-edge behavior; they are not HD real-time benchmarks or a GUI playback test.
+On the tested Apple M1 with IINA's libmpv and normal half-float intermediates, mean absolute RGB error was approximately 0.001 and maximum absolute error was below 0.008, on normalized input/output values. The output was exactly twice the source dimensions. A separate 320×180 FFV1 motion smoke test rendered 12 successive frames at 640×360 without GL errors. Set `AJN_TEST_PLAYBACK=1` when running the rendering helper with a video to exercise consecutive frames. Detailed observations are in `verification.json`. These cases validate shader compilation, model operations and odd-edge behavior; they are not HD real-time benchmarks or a GUI playback test.
 
 ## Attribution and license
 
