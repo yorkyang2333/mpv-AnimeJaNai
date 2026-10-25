@@ -1,0 +1,12 @@
+{
+  "name": "2x_AnimeJaNai_HD_V3_SuperUltraCompact",
+  "author": "the-database",
+  "license": "CC-BY-NC-SA-4.0",
+  "source": "https://github.com/the-database/mpv-AnimeJaNai/releases/tag/3.0.0",
+  "archive": "https://github.com/the-database/mpv-AnimeJaNai/releases/download/3.0.0/2x_AnimeJaNai_HD_V3_ModelsOnly.zip",
+  "archiveSha256": "50eefb2b657a19934f33ca002ab8f701b5c960566bd54b23f658bdeb19d7788f",
+  "path": "BuildMpvUpscale2xAnimeJaNai/mpv-upscale-2x_animejanai/animejanai/onnx/2x_AnimeJaNai_HD_V3_SuperUltraCompact.onnx",
+  "sha256": "f6bbfbed502b8d300ee9d678d2c277d4b56235c36d053c3a1a41be060c54c0e6",
+  "convertedShader": "shaders/AnimeJaNai_Fast.glsl",
+  "convertedShaderSha256": "a168a3d97494ef32e490969e0dbc5227cfd27427688864f94adf66ec185d1817"
+}
