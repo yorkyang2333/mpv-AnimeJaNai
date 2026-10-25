@@ -1,0 +1,3 @@
+# ONNX parsing and model-to-GLSL compilation only; not needed by IINA.
+onnx==1.23.2
+numpy==2.5.4

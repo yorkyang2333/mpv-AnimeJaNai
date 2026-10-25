@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-25",
+  "gpu": "Apple M1",
+  "renderer": "IINA bundled libmpv, offscreen OpenGL 4.1 core",
+  "intermediate_format": "rgba16f",
+  "reference": "ONNX Runtime CPU, original FP16 model",
+  "cases": [
+    {
+      "input": [
+        32,
+        24
+      ],
+      "output": [
+        64,
+        48
+      ],
+      "mae": 0.0009981824550777674,
+      "max_error": 0.005859375,
+      "process_seconds": 1.442
+    },
+    {
+      "input": [
+        33,
+        25
+      ],
+      "output": [
+        66,
+        50
+      ],
+      "mae": 0.0009984673233702779,
+      "max_error": 0.0078125,
+      "process_seconds": 0.541
+    },
+    {
+      "input": [
+        256,
+        144
+      ],
+      "output": [
+        512,
+        288
+      ],
+      "mae": 0.0009845062159001827,
+      "max_error": 0.0078125,
+      "process_seconds": 0.574
+    }
+  ],
+  "scope": "Numerical and shader compilation verification only; not an HD real-time playback benchmark."
+}
