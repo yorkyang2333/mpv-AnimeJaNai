@@ -1,0 +1,10 @@
+{
+  "name": "2x_AnimeJaNai_HD_V3.1Sharp1_Performance_SPANF3_b5f48_unshuffle_fp16",
+  "author": "the-database",
+  "license": "CC-BY-NC-SA-4.0",
+  "source": "https://github.com/the-database/mpv-AnimeJaNai",
+  "path": "BuildMpvUpscale2xAnimeJaNai/mpv-upscale-2x_animejanai/animejanai/onnx/2x_AnimeJaNai_HD_V3.1Sharp1_Performance_SPANF3_b5f48_unshuffle_fp16.onnx",
+  "sha256": "72246eded3aab52f8d1a71613c0a1d900734b358d1820b62eb36f1ed376e1cf4",
+  "convertedShader": "shaders/AnimeJaNai_Sharp.glsl",
+  "convertedShaderSha256": "2e12ea098db665871d020c4ffff323f98c3c4194ea63af9f37a80346620485b1"
+}

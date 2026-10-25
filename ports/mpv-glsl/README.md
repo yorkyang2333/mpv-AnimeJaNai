@@ -47,15 +47,8 @@ On the tested Apple M1 with IINA's libmpv and normal half-float intermediates, m
 
 The original model is by the-database, from upstream revision `545ac129cf189ac5a68101d9f3d91c4d0fc78217`. The model and the converted coefficients retain CC BY-NC-SA 4.0; the original license is preserved in `models/animejanai/UPSTREAM-LICENSE`. Conversion is a change of execution representation only. The converter and verification helpers are by yorkyang2333 and are MIT-licensed under this directory's `LICENSE`. No existing upstream playback code or default configuration is modified.
 
-## Preconverted speed profiles
+## Native model profiles
 
-The submodule also includes the V3 `SuperUltraCompact` model and four preconverted profile resources used by AnimeEnhancer:
+AnimeEnhancer selects among native-resolution preconverted models; it does not resize the input to create a speed tier. `AnimeJaNai_Fast.glsl` uses the upstream V3 `SuperUltraCompact` model. `AnimeJaNai_Performance.glsl` uses V3.1 Performance, `AnimeJaNai_Balanced.glsl` uses V3.1 Balanced, and `AnimeJaNai_Sharp.glsl` uses V3.1 Sharp1 Performance. All four receive the same source resolution and produce 2× output. The heavier models are quality references rather than real-time profiles on an M1.
 
-- `AnimeJaNai_Downscale_240p.glsl` → `AnimeJaNai_Fast.glsl`: Smooth, lowest inference cost.
-- `AnimeJaNai_Downscale_360p.glsl` → `AnimeJaNai_Fast.glsl`: Fast, suitable for normal playback on the tested M1.
-- `AnimeJaNai_Downscale_540p.glsl` → `AnimeJaNai_Fast.glsl`: Balanced, higher detail with a lower frame rate.
-- `AnimeJaNai_Performance.glsl`: Quality, original V3.1 Performance model at native input resolution.
-
-The first three profiles deliberately reduce the inference resolution before the 2× model and therefore trade fine detail for speed. On the tested Apple M1 with a 1920×1080 source, the offscreen renderer measured approximately 17 ms/frame (Smooth), 29 ms/frame (Fast), and 59 ms/frame (Balanced), after shader compilation. These are renderer-only measurements; decode, presentation and first-use compilation are excluded. The Quality profile remains substantially slower and is unsuitable for real-time 1080p playback on that machine.
-
-The `SuperUltraCompact` model and its converted shader are derived from the upstream V3 model archive and retain the same CC BY-NC-SA 4.0 terms. `models/animejanai/super-ultra-compact.json` records the archive and model checksums.
+On the tested M1 with a 640×360 source and 1280×720 render target, the steady renderer measurements were approximately 29 ms/frame for Fast, 175–190 ms/frame for Performance and Sharp, and 500 ms/frame for Balanced. First-use shader compilation is additional. Use Fast for playback; the other profiles are useful for screenshots, short clips or quality comparison.
