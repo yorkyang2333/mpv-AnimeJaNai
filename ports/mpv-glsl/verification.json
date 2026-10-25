@@ -45,7 +45,7 @@
       "process_seconds": 0.574
     }
   ],
-  "scope": "Numerical and shader compilation verification only; not an HD real-time playback benchmark.",
+  "scope": "Numerical correctness and renderer benchmarks only; all profiles use the source resolution. Results exclude decode, presentation and first-use shader compilation.",
   "motion_smoke": {
     "source": "16-frame FFV1 test video, 320x180 at 12 fps",
     "output": [
@@ -55,5 +55,67 @@
     "rendered_frames": 12,
     "gl_error": 0,
     "note": "Offscreen libmpv renderer smoke test, not GUI or HD performance verification."
-  }
+  },
+  "profile_benchmarks": [
+    {
+      "profile": "Fast",
+      "model": "V3 SuperUltraCompact",
+      "input": [
+        640,
+        360
+      ],
+      "render_target": [
+        1280,
+        720
+      ],
+      "steady_ms_per_frame": 29,
+      "fps_equivalent": 34.5,
+      "inference_resolution": "640x360 (native)"
+    },
+    {
+      "profile": "Performance",
+      "model": "V3.1 Performance",
+      "input": [
+        640,
+        360
+      ],
+      "render_target": [
+        1280,
+        720
+      ],
+      "steady_ms_per_frame": 175,
+      "fps_equivalent": 5.7,
+      "inference_resolution": "640x360 (native)"
+    },
+    {
+      "profile": "Sharp",
+      "model": "V3.1 Sharp1 Performance",
+      "input": [
+        640,
+        360
+      ],
+      "render_target": [
+        1280,
+        720
+      ],
+      "steady_ms_per_frame": 185,
+      "fps_equivalent": 5.4,
+      "inference_resolution": "640x360 (native)"
+    },
+    {
+      "profile": "Balanced",
+      "model": "V3.1 Balanced",
+      "input": [
+        640,
+        360
+      ],
+      "render_target": [
+        1280,
+        720
+      ],
+      "steady_ms_per_frame": 500,
+      "fps_equivalent": 2.0,
+      "inference_resolution": "640x360 (native)"
+    }
+  ]
 }
